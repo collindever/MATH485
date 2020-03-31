@@ -1,0 +1,145 @@
+---
+title: "Homework5"
+author: "Collin Dever"
+date: "March 24, 2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Part I
+
+### 2.1.1
+
+* What is f?
+  * F is a function a relationship between our x's and y
+* Why do we care about estimating f?
+  * Because F is unknown
+* Describe the two types of errors in a model.
+  * Reducible and Irreducible error reducible we can eliminate Irreducible we cannot
+  * f(x) is a Reducible error and epsilon is our irreducible
+  * $y = f(x) + \epsilon$
+* What concept in 456 does irreducible error portion of the model correspond to?
+  * The idea of an irreducible error is covered in the idea of variance. 
+  
+### 2.1.2
+
+* What is the difference between a parametric & non-parametric model?  
+  * A parametric models assumes `f` follows some form of mathematical function. While a non-parametric model makes no assumptions on the form of `f`.
+* Give an example of each.
+  * An example of a parametric model is that of a linear model.
+  * A non-parametric model is a spline.
+* What are the advantages of a parametric approach to regression or classification (as opposed to a non parametric approach)?
+  * A major advantage is we reduce the chance of over fitting the model to our data.
+* What are the disadvantages?
+  * I think we as human intuitively know that the world very rarely follows nice clean patterns. We may assume too much of an understanding of the relationship by using a parametric model.
+
+### 2.1.3 & 2.1.4
+
+* Why would we ever choose to use a more restrictive method instead of a very flexible approach?
+  * Interpretation that allows us to explain the relationships to others.
+* What is the difference between supervised & unsupervised learning?
+  * In supervised learning there is an expected outcome of a predicted value for y.
+  * Unsupervised learning makes no such prediction it merely attempts to understand the relationships of the data.
+* Give an example of each.
+  * A linear regression is an example of a supervised model.
+  * Cluster analysis is an example of an unsupervised model.
+  
+### 2.2.1
+
+* What is the primary measure of model accuracy for regression models?
+  * The Reducible and Irreducible error are the primary measure of accuracy.
+* Compare and contrast a smoothing spline to a linear regression line. (What is the same, what is different)
+  * A linear model has a fixed rate of change and therefore when applied to non-linear true functions does not give us the best MSE.
+  * Smoothing splines add n levels of curves to the model and therefore can be made to fit either the training data or the true function f very well.
+
+### 2.2.1 & 2.2.2
+
+* What’s the difference between training and testing data? Why do we need both?
+* What is over fitting?
+  * It is when are model begins to describe randomization of data.  You can tell by low MSE on training but high MSE on testing.
+* If we don’t have a testing data set, what method can we use to estimate the MSE of the testing data?
+  * We can show the expected test MSE as the sum of the variance of $var(\hat{f})$ the square bias of and $var(\epsilon)$ 
+  * Bias is (obs $\bar{x}$ - true $\mu$)
+  * $\mu$ is predicted 
+
+### 2.2.2 & 2.2.3
+
+* What is the bias-variance trade-off?
+  * As bias decreases variance increases
+* What is the primary measure of model accuracy for classification models?
+  * Training error rate (Proportion of mistakes made on training observations)
+  * Testing error rate (Proportion of mistakes made on testing observations)
+  
+### 2.2.3
+
+* Describe the Bayes Classifier
+  * Bayes theorem $P(A|B)=\frac{P(B|A)P(A)}{P(B)}$
+* What is the Bayes error rate?
+  * It is the irreducible error. Used to reduce test error rate.  
+* What is a limitation of the Bayes classifier?
+  * It is limiting in that you need more data about the topic outside the subject. For an ideal use of a Bayes Classifier we would need to know the Condition distribution of y. 
+  
+  
+* Describe how the K-Nearest Neighbors classifier works.
+  * Find the distance between a query selecting the k-numbers of neighbors the judges or averages
+* Name a benefit of using a KNN model.
+  * KNN can be tuned rather drastically by changing the values of K
+* What happens to the accuracy/bias of the model as the K increases? Why?
+  * As K increases variance decreases and bias increases. We can reduce our training error rate without necessarily reducing our test error rate.
+
+## Part II
+
+### 1
+
+For each of the parts indicate whether we would generally expect the performance of a flexible statistical learning method to be better or worse than an inflexible method.
+
+* The sample size *n* is extremely large, and the number of predictors *p* is small
+  * The inflexible model should preform better than the inflexible.  Because we have a large number of n's we have a better sense of the true distribution and an inflexible model will be able to discern this through the natural random variation.
+* The number of predictors *p* is extremely large, and the number of observations *n* is small
+  * Because the biggest concern will be dimension reduction we will want to select a more flexible method of analysis instead of an inflexible model which will not help us discover are important subset of predictors.
+* The relationship between the predictors and response is highly non-linear
+  * A more flexible model will preform better than an inflexible.  Given we know that the relationship is highly non-linear we would not want to restrict the variety of models are analysis can produce.
+* The variance of the error terms, i.i $\sigma^2 = Var(\epsilon), is extremely high$ 
+  * 
+
+### 2
+
+Explain whether each scenario is a classification or regression problem, and indicate whether we are most interested in inference or prediction. Finally provide n & p
+
+* We collect a set of data on the top 500 firms in the US. For each firm we record profit, number of employees, industry and the CEO salary. We are interested in understanding which factors affect CEO salary.
+  * This problem would be best handled as a regression. The desired outcome should allows us in some way to examine each predictors influence on CEO salary. We are not interested in looking at similarities and differences in the CEO salary itself.
+  * For this problem we are most concerned with inference not prediction.  We want to understand the `which factors affect CEO salary`. The emphasis on understanding the relationships is what makes it inferential.
+  * n = 500
+  * p = 3
+
+* We are considering launching a new product and wish to know whether it will be a success of a failure. We collect data on 20 similar products that were previously launched. For each product we have recorded whether it was a success or failure, price charged for the product, marketing budget, competition price, and 10 other variables.
+  * This problems would best be examined by classification.  We don't want to make any assumption on the forms of relationship in the data better to allow it to classify product as successes or failures.
+  * For this question we are most interested in prediction. The product has not been released yet so we would like to get a prediction of it's success given the data.
+  * n = 14
+  * p = 20
+  
+* We are interested in predicting the % change in the USD/Euro exchange rate in relation to the weekly changes in the world stock market. Hence we collect weekly data for all of 2012. For each week we record the % change in the USD/Euro, the % change in the US market, the %change in the British market, and the % change in the German market.
+  * Because we are dealing with % change in all of are variables, examining this question would best be done through regression.  We want to have a rate of change which will follow some mathematical function.
+  * For this problem we are most interested in prediction.  In the description we even use the world prediction to explain what we want the outcome to be, that of predicting the exchange rate of the USD and Euro.
+  * n = 52
+  * p = 3
+
+### 4
+
+Think of some real-life applications for statistical learning
+
+* Describe a real-life applications in which classification might be useful. Describe the response, as well as the predictors. Is the goal of each application inference or prediction? Explain.
+  * We have genomic data for participants and we are trying to determine which genes are responsible for use having webbed-feet or not. This question is inferential in nature we want to understand the relationship that leads to the condition.
+* Describe a real-life applications in which regression might be useful. Describe the response, as well as the predictors. Is the goal of each application inference or prediction? Explain.
+  * There is a wildfire and we would like to be able to predict it's rate of growth given various environmental factors.
+* Describe a real-life applications in which cluster analysis might be useful.
+  * We have NBA player statistics and we want to understand how position affect the variables and if there are subgroups of players that are similar among the positions.
+
+## Part III
+
+Suppose that in our role as statistical consultants we are asked to suggest, on the basis of this data, a marketing plan for next year that will result in high product sales. What information would be useful in order to provide such a recommendation?
+
+As a starting point we can look at the example above, determining if a product will be a success or failure. To start they include price, competitor price and marketing budget. For the marketing budget we would want to just look at the past marketing budget for the product we're attempting to predict. In addition to marketing budget we would want sales history for the product as well. It would be helpful to also include economic data/forecasts to examine people's' propensity to buy anything let alone our product. A valuable addition of data would also be user reviews or ratings of the product.
